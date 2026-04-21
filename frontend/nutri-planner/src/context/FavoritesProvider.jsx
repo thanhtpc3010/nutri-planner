@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { FavoritesContext } from './favorites-context.js';
-import { mealService } from '../services/mealService.js';
+
+const mealsData = [
+  {"id":"1","name":"Avocado Toast with Eggs","category":"Breakfast","dietType":["Vegan","GlutenFree"],"calories":350,"image":"/assets/avocado-toast.jpg","ingredients":[{"name":"Avocado","quantity":1,"unit":"whole"},{"name":"Eggs","quantity":2,"unit":"pcs"},{"name":"Whole grain bread","quantity":1,"unit":"slice"}],"steps":["Toast the bread","Mash avocado and spread on toast","Poach eggs and place on top","Season with salt and pepper"],"nutrition":{"calories":350,"protein":15,"carbs":25,"fat":25},"tags":["Quick","Healthy"],"allergens":[]},
+  {"id":"2","name":"Greek Yogurt Parfait","category":"Breakfast","dietType":["Keto"],"calories":280,"image":"/assets/yogurt-parfait.jpg","ingredients":[{"name":"Greek yogurt","quantity":150,"unit":"g"},{"name":"Berries","quantity":50,"unit":"g"},{"name":"Almonds","quantity":20,"unit":"g"}],"steps":["Layer yogurt in glass","Add berries","Top with almonds"],"nutrition":{"calories":280,"protein":20,"carbs":15,"fat":18},"tags":["Low Carb"],"allergens":["Dairy","Nuts"]},
+  {"id":"3","name":"Chicken Quinoa Bowl","category":"Lunch","dietType":["HighProtein"],"calories":450,"image":"/assets/quinoa-bowl.jpg","ingredients":[{"name":"Chicken breast","quantity":150,"unit":"g"},{"name":"Quinoa","quantity":100,"unit":"g cooked"},{"name":"Broccoli","quantity":100,"unit":"g"},{"name":"Avocado","quantity":0.5,"unit":"whole"}],"steps":["Cook quinoa","Grill chicken","Steam broccoli","Assemble bowl"],"nutrition":{"calories":450,"protein":35,"carbs":30,"fat":20},"tags":["Balanced"],"allergens":[]},
+  {"id":"4","name":"Keto Salmon Salad","category":"Lunch","dietType":["Keto"],"calories":420,"image":"/assets/salmon-salad.jpg","ingredients":[{"name":"Salmon","quantity":150,"unit":"g"},{"name":"Mixed greens","quantity":100,"unit":"g"},{"name":"Olive oil","quantity":20,"unit":"ml"},{"name":"Lemon","quantity":1,"unit":"pcs"}],"steps":["Bake salmon","Toss greens with oil and lemon","Top with salmon"],"nutrition":{"calories":420,"protein":30,"carbs":5,"fat":35},"tags":["Omega3"],"allergens":["Fish"]},
+  {"id":"5","name":"Beef Stir Fry","category":"Dinner","dietType":["HighProtein"],"calories":520,"image":"/assets/beef-stirfry.jpg","ingredients":[{"name":"Beef strips","quantity":200,"unit":"g"},{"name":"Bell peppers","quantity":150,"unit":"g"},{"name":"Broccoli","quantity":100,"unit":"g"},{"name":"Soy sauce","quantity":20,"unit":"ml"}],"steps":["Stir fry beef","Add veggies","Add soy sauce"],"nutrition":{"calories":520,"protein":40,"carbs":20,"fat":30},"tags":["QuickDinner"],"allergens":["Soy"]},
+  {"id":"6","name":"Vegan Buddha Bowl","category":"Dinner","dietType":["Vegan"],"calories":380,"image":"/assets/buddha-bowl.jpg","ingredients":[{"name":"Chickpeas","quantity":150,"unit":"g"},{"name":"Sweet potato","quantity":150,"unit":"g"},{"name":"Kale","quantity":100,"unit":"g"},{"name":"Tahini","quantity":20,"unit":"g"}],"steps":["Roast sweet potato","Massage kale","Roast chickpeas","Drizzle tahini"],"nutrition":{"calories":380,"protein":15,"carbs":50,"fat":15},"tags":["PlantBased"],"allergens":["Sesame"]},
+  {"id":"7","name":"Almond Butter Celery Sticks","category":"Snacks","dietType":["Keto"],"calories":180,"image":"/assets/celery-sticks.jpg","ingredients":[{"name":"Celery","quantity":2,"unit":"stalks"},{"name":"Almond butter","quantity":30,"unit":"g"}],"steps":["Spread almond butter on celery"],"nutrition":{"calories":180,"protein":5,"carbs":8,"fat":16},"tags":["Crunchy"],"allergens":["Nuts"]},
+  {"id":"8","name":"Green Smoothie","category":"Smoothies","dietType":["Vegan"],"calories":220,"image":"/assets/green-smoothie.jpg","ingredients":[{"name":"Spinach","quantity":100,"unit":"g"},{"name":"Banana","quantity":1,"unit":"pcs"},{"name":"Almond milk","quantity":200,"unit":"ml"}],"steps":["Blend all ingredients"],"nutrition":{"calories":220,"protein":5,"carbs":35,"fat":6},"tags":["Detox"],"allergens":["Nuts"]},
+  {"id":"9","name":"Turkey Wrap","category":"Lunch","dietType":["LowCalorie"],"calories":320,"image":"/assets/turkey-wrap.jpg","ingredients":[{"name":"Turkey slices","quantity":100,"unit":"g"},{"name":"Lettuce wrap","quantity":2,"unit":"leaves"},{"name":"Tomato","quantity":50,"unit":"g"},{"name":"Mustard","quantity":10,"unit":"g"}],"steps":["Layer ingredients in lettuce","Roll up"],"nutrition":{"calories":320,"protein":30,"carbs":10,"fat":15},"tags":["LowCarb"],"allergens":[]},
+  {"id":"10","name":"Chocolate Protein Shake","category":"Smoothies","dietType":["HighProtein"],"calories":250,"image":"/assets/protein-shake.jpg","ingredients":[{"name":"Protein powder","quantity":30,"unit":"g"},{"name":"Almond milk","quantity":250,"unit":"ml"},{"name":"Cocoa powder","quantity":10,"unit":"g"}],"steps":["Blend all ingredients"],"nutrition":{"calories":250,"protein":30,"carbs":10,"fat":8},"tags":["PostWorkout"],"allergens":["Dairy"]},
+  {"id":"11","name":"Egg Salad","category":"Snacks","dietType":["Keto"],"calories":300,"image":"/assets/egg-salad.jpg","ingredients":[{"name":"Eggs","quantity":3,"unit":"pcs"},{"name":"Mayonnaise","quantity":20,"unit":"g"},{"name":"Celery","quantity":50,"unit":"g"}],"steps":["Boil eggs","Mix with mayo and celery"],"nutrition":{"calories":300,"protein":18,"carbs":3,"fat":25},"tags":["Easy"],"allergens":["Eggs"]}
+];
 
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
@@ -21,7 +34,7 @@ export const FavoritesProvider = ({ children }) => {
 
   const isFavorite = (mealId) => favorites.includes(mealId);
 
-  const favoriteMeals = mealService.getAllMeals().filter(meal => isFavorite(meal.id));
+  const favoriteMeals = mealsData.filter(meal => isFavorite(meal.id));
 
   return (
     <FavoritesContext.Provider value={{

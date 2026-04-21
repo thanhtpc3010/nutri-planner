@@ -5,8 +5,7 @@ import Favorites from '../pages/Favorites.jsx';
 import Calculator from '../pages/Calculator.jsx';
 import Contact from '../pages/Contact.jsx';
 import Feedback from '../pages/Feedback.jsx';
-import Login from '../pages/Login.jsx';
-import Register from '../pages/Register.jsx';
+import Auth from '../pages/Auth.jsx';
 
 const AppRoutes = () => {
   return (
@@ -17,8 +16,7 @@ const AppRoutes = () => {
       <Route path="/calculator" element={<Calculator />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/feedback" element={<Feedback />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/auth" element={<Auth />} />
       <Route path="*" element={
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">

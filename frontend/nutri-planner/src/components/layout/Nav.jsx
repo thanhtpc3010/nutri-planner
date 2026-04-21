@@ -7,18 +7,17 @@ const Nav = () => {
     { to: '/calculator', label: 'Calculator' },
     { to: '/contact', label: 'Contact' },
     { to: '/feedback', label: 'Feedback' },
-    { to: '/login', label: 'Login' },
-    { to: '/register', label: 'Register' }
+    { to: '/auth', label: 'Auth' }
   ];
 
   return (
-    <nav className="flex flex-wrap gap-2 md:gap-4">
+    <nav className="flex gap-1 md:gap-2">
       {links.map(({ to, label }) => (
         <NavLink
           key={to}
           to={to}
           className={({ isActive }) =>
-            `px-4 py-2 rounded-lg font-medium transition-all ${
+            `px-2 md:px-3 py-1 md:py-2 rounded-lg font-medium text-sm md:text-base transition-all ${
               isActive
                 ? 'bg-primary-500 text-white shadow-md'
                 : 'text-gray-700 hover:bg-gray-100 hover:text-primary-600'
